@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Achilles分布式扫描器</title>
+    <link rel="icon" href="favicon.ico" type="image/gif">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- MetisMenu CSS -->
+    <link href="/static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <!-- Timeline CSS -->
+    <link href="/static/dist/css/timeline.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="/static/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="/static/bower_components/toastr/toastr.min.css" rel="stylesheet">
+
+    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/bower_components/toastr/toastr.min.js"></script>
+    <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="/static/bower_components/raphael/raphael-min.js"></script>
+    <script src="/static/bower_components/morrisjs/morris.min.js"></script>
+    <script src="/static/js/morris-data.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/static/normal.js"></script>
+    <script type="text/javascript">
+
+        function modify_domain() {
+            var init_url = document.getElementById('init_url').value;
+            var r = new RegExp('^[^/]*//([^/]*)/.*', 'g');
+            var array = r.exec(init_url);
+            document.getElementById('allow_domain').value = array[1];
+        }
+
+        function do_start() {
+            var configs = [];
+
+            var keys = ['server_addr', 'clients_addr', 'init_url', 'cookie', 'filetype', 'allow_domain', 'depth_limit', 'proxy_port'];
+            var values = {};
+            for (var i = keys.length - 1; i >= 0; i--) {
+                values[keys[i]] = document.getElementById(keys[i]).value;
+                if (values[keys[i]] == '' && keys[i] != 'cookie') {
+                    toastr.info(keys[i] + ' 未设置');
+                    return;
+                }
+                configs.push([keys[i], encodeURIComponent(values[keys[i]])].join('='))
+            }
+
+            var check_keys = ['click_proxy', 'xss_scanner', 'sql_scanner'];
+            var check_values = {};
+            for (i = check_keys.length - 1; i >= 0; i--) {
+                var id = 'checkbox_' + check_keys[i];
+                check_values[id] = document.getElementById(id).checked;
+                if (check_values[id]) {
+                    configs.push([check_keys[i], 'ON'].join('='))
+                } else {
+                    configs.push([check_keys[i], 'OFF'].join('='))
+                }
+            }
+
+            var data = configs.join('&');
+            send_post('/config/', data, function(text) {
+                if (text == 'OK') {
+                    toastr.success('扫描器已配置');
+                    send_get('/start/', function(text) {
+                        if (text == 'Already started') {
+                            toastr.info('扫描器正在运行中')
+                        } else{
+                            toastr.success('扫描器已启动');
+                        }
+                        setTimeout(function () {
+                            window.location.href = '/result/';
+                        }, 1000);
+                    });
+                }
+                else {
+                    toastr.info('扫描器正在运行中，配置失败');
+                }
+            });
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="/">从 蘑菇街安全巡航 到 Achilles</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+
+                        <li>
+                            <a href="/"><i class="fa fa-dashboard fa-fw"></i> 扫描器</a>
+                        </li>
+                        <li>
+                            <a href="/"><i class="fa fa-bar-chart-o fa-fw"></i> 爬虫</a>
+                        </li>
+                        <li>
+                            <a href="/"><i class="fa fa-table fa-fw"></i> 表单猜解</a>
+                        </li>
+                        <li>
+                            <a href="/"><i class="fa fa-edit fa-fw"></i> SQL扫描</a>
+                        </li>
+                        <li>
+                            <a href="/"><i class="fa fa-sitemap fa-fw"></i> XSS扫描</a>
+                        </li>
+                        <li>
+                            <a href="/result/"><i class="fa fa-envelope fa-fw"></i> 结果查看</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper" style="overflow: auto">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">扫描器设置
+                        <button type="button" class="btn btn-outline btn-danger pull-right" onclick="do_start()">START
+                        </button>
+                    </h2>
+                </div>
+
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row col-lg-12">
+                <!-- 爬虫 -->
+                <div>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class='col-xs-1' for="init_url">起始<br>链接</label>
+                            <div class="col-xs-11">
+                                <input class="form-control" id="init_url" value="{{ Scanner.init_url }}" onchange="modify_domain()">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-xs-1' for="allow_domain">域名<br>限制</label>
+                            <div class="col-xs-3">
+                                <input class="form-control" id="allow_domain" value="{{ Scanner.allow_domain }}">
+                            </div>
+                            <label class='col-xs-1' for="filetype">文件<br>类型</label>
+                            <div class="col-xs-4">
+                                <input class="form-control" id="filetype" value="{{ Scanner.filetype }}">
+                            </div>
+                            <label class='col-xs-1' for="depth_limit">爬行<br>深度</label>
+                            <div class="col-xs-1">
+                                <input class="form-control" id="depth_limit" value="{{ Scanner.depth_limit }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-xs-1' for="cookie">Cookie</label>
+                            <div class="col-xs-11">
+                                <input class="form-control" id="cookie" value="{{ Scanner.cookie }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-xs-1' for="server_addr">Server地址</label>
+                            <div class="col-xs-11">
+                                <input class="form-control" id="server_addr" value="{{ Communicate.server_addr }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-xs-1' for="clients_addr">Client地址</label>
+                            <div class="col-xs-11">
+                                <input class="form-control" id="clients_addr" value="{{ Communicate.clients_addr }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox col-xs-2">
+                                <label>
+                                    <input type="checkbox" id="checkbox_sql_scanner">SQL扫描器
+                                </label>
+                            </div>
+                            <div class="checkbox col-xs-2">
+                                <label>
+                                    <input type="checkbox" id="checkbox_xss_scanner">XSS扫描器
+                                </label>
+                            </div>
+                            <div class="checkbox col-xs-2">
+                                <label>
+                                    <input type="checkbox" id="checkbox_click_proxy">代理
+                                </label>
+                            </div>
+                            <label class='col-xs-2' for="proxy_port">代理监听端口</label>
+                            <div class="col-xs-4">
+                                <input class="form-control" id="proxy_port" value="{{ Scanner.proxy_port }}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            Copyright © 2015 - 2016 hanshui&bishu All Rights Reserved.
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <script type="text/javascript">
+        document.getElementById('checkbox_click_proxy').checked = {% if Modules.click_proxy %}true{% else %}false{% endif %};
+        document.getElementById('checkbox_xss_scanner').checked = {% if Modules.xss_scanner %}true{% else %}false{% endif %};
+        document.getElementById('checkbox_sql_scanner').checked = {% if Modules.sql_scanner %}true{% else %}false{% endif %};
+    </script>
+</body>
+
+</html>
