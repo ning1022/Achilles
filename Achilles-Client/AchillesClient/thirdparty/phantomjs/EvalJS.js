@@ -4,9 +4,7 @@
  *
  *  利用phantomjs发起请求，得到返回的页面并且处理了JS
  *  Cookie、网络请求、POST/GET
- */
-
-/*
+ *  
  * 调用范例：
  * "./phantomjs" --disk-cache=true --load-images=false --web-security=false
  * --ignore-ssl-errors=true --ssl-protocol=any --output-encoding="UTF8"
@@ -27,6 +25,10 @@ var target_url = system.args[2];
 var data = system.args[3];
 var domain = system.args[4];
 var cookies = system.args[5];
+
+/* cookies should be "c1=v1; c2=v2; c3=v3"
+ * in case of something like "c1=v1;c2=v2;c3=v3"
+ * using following instead of split('; ') */
 cookies = cookies.replace(/ /g, '').split(';');
 
 // 发起请求
