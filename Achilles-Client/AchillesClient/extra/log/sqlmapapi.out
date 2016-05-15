@@ -1,32 +1,44 @@
-[17:18:39] [INFO] Running REST-JSON API server at '127.0.0.1:8522'..
-[17:18:39] [INFO] Admin ID: 90f3de8e5d6386278d11ec329260d6b9
-[17:18:39] [DEBUG] IPC database: c:\users\myth1_~1\appdata\local\temp\sqlmapipc-mfupop
-[17:18:39] [DEBUG] REST-JSON API server connected to IPC database
-[17:18:42] [DEBUG] Created new task: '7b13a0fd1e9eec2f'
-[17:18:42] [DEBUG] Created new task: '7b6a65d90864f750'
-[17:18:42] [DEBUG] [7b13a0fd1e9eec2f] Started scan
-[17:18:42] [DEBUG] [7b6a65d90864f750] Started scan
-[17:18:42] [DEBUG] [7b13a0fd1e9eec2f] Retrieved scan status
-[17:18:42] [DEBUG] [7b6a65d90864f750] Retrieved scan status
-[17:18:44] [DEBUG] [7b13a0fd1e9eec2f] Retrieved scan status
-[17:18:44] [DEBUG] [7b6a65d90864f750] Retrieved scan status
-[17:18:46] [DEBUG] [7b13a0fd1e9eec2f] Retrieved scan status
-[17:18:46] [DEBUG] [7b6a65d90864f750] Retrieved scan status
-[17:18:48] [DEBUG] [7b13a0fd1e9eec2f] Retrieved scan status
-[17:18:48] [DEBUG] [7b13a0fd1e9eec2f] Retrieved scan data and error messages
-[17:18:48] [DEBUG] [7b6a65d90864f750] Retrieved scan status
-[17:18:48] [DEBUG] [7b13a0fd1e9eec2f] Deleted task
-[17:18:51] [DEBUG] Created new task: 'f707e1bb08f2a213'
-[17:18:51] [DEBUG] [7b6a65d90864f750] Retrieved scan status
-[17:18:51] [DEBUG] [f707e1bb08f2a213] Started scan
-[17:18:51] [DEBUG] [f707e1bb08f2a213] Retrieved scan status
-[17:18:53] [DEBUG] [7b6a65d90864f750] Retrieved scan status
-[17:18:53] [DEBUG] [f707e1bb08f2a213] Retrieved scan status
-[17:18:55] [DEBUG] [7b6a65d90864f750] Retrieved scan status
-[17:18:55] [DEBUG] [7b6a65d90864f750] Retrieved scan data and error messages
-[17:18:55] [DEBUG] [7b6a65d90864f750] Deleted task
-[17:18:55] [DEBUG] [f707e1bb08f2a213] Retrieved scan status
-[17:18:57] [DEBUG] [f707e1bb08f2a213] Retrieved scan status
-[17:18:59] [DEBUG] [f707e1bb08f2a213] Retrieved scan status
-[17:18:59] [DEBUG] [f707e1bb08f2a213] Retrieved scan data and error messages
-[17:18:59] [DEBUG] [f707e1bb08f2a213] Deleted task
+[15:23:50] [INFO] Running REST-JSON API server at '127.0.0.1:8522'..
+[15:23:50] [INFO] Admin ID: c42c8b11ce0920de7fe7d6cff38c629a
+[15:23:50] [DEBUG] IPC database: c:\users\myth1_~1\appdata\local\temp\sqlmapipc-fc_lmp
+[15:23:50] [DEBUG] REST-JSON API server connected to IPC database
+[15:23:52] [DEBUG] Created new task: 'e8cf0ef3b9c0daed'
+[15:23:52] [DEBUG] [e8cf0ef3b9c0daed] Started scan
+[15:23:52] [DEBUG] [e8cf0ef3b9c0daed] Retrieved scan status
+[15:23:54] [DEBUG] [e8cf0ef3b9c0daed] Retrieved scan status
+[15:23:56] [DEBUG] [e8cf0ef3b9c0daed] Retrieved scan status
+[15:23:58] [DEBUG] Created new task: '423d138335445a18'
+[15:23:58] [DEBUG] Created new task: '985154e0f88ade5c'
+[15:23:58] [DEBUG] [423d138335445a18] Started scan
+[15:23:58] [DEBUG] [985154e0f88ade5c] Started scan
+[15:23:58] [DEBUG] [423d138335445a18] Retrieved scan status
+[15:23:58] [DEBUG] [985154e0f88ade5c] Retrieved scan status
+[15:23:58] [DEBUG] [e8cf0ef3b9c0daed] Retrieved scan status
+[15:24:00] [DEBUG] [423d138335445a18] Retrieved scan status
+[15:24:00] [DEBUG] [985154e0f88ade5c] Retrieved scan status
+[15:24:00] [DEBUG] [e8cf0ef3b9c0daed] Retrieved scan status
+[15:24:02] [DEBUG] [423d138335445a18] Retrieved scan status
+[15:24:02] [DEBUG] [423d138335445a18] Retrieved scan data and error messages
+[15:24:02] [DEBUG] [985154e0f88ade5c] Retrieved scan status
+[15:24:02] [DEBUG] [423d138335445a18] Deleted task
+[15:24:02] [DEBUG] [e8cf0ef3b9c0daed] Retrieved scan status
+[15:24:02] [DEBUG] [e8cf0ef3b9c0daed] Retrieved scan data and error messages
+[15:24:02] [DEBUG] [e8cf0ef3b9c0daed] Deleted task
+[15:24:04] [DEBUG] Created new task: '470c480c35e00f58'
+[15:24:04] [DEBUG] Created new task: '436927f913e182e1'
+[15:24:04] [DEBUG] [470c480c35e00f58] Started scan
+[15:24:04] [DEBUG] [436927f913e182e1] Started scan
+[15:24:04] [DEBUG] [470c480c35e00f58] Retrieved scan status
+[15:24:04] [DEBUG] [436927f913e182e1] Retrieved scan status
+[15:24:04] [DEBUG] [985154e0f88ade5c] Retrieved scan status
+[15:24:06] [DEBUG] [470c480c35e00f58] Retrieved scan status
+[15:24:06] [DEBUG] [436927f913e182e1] Retrieved scan status
+[15:24:06] [DEBUG] [985154e0f88ade5c] Retrieved scan status
+[15:24:06] [DEBUG] [985154e0f88ade5c] Retrieved scan data and error messages
+[15:24:06] [DEBUG] [985154e0f88ade5c] Deleted task
+[15:24:08] [DEBUG] [470c480c35e00f58] Retrieved scan status
+[15:24:08] [DEBUG] [470c480c35e00f58] Retrieved scan data and error messages
+[15:24:08] [DEBUG] [436927f913e182e1] Retrieved scan status
+[15:24:08] [DEBUG] [470c480c35e00f58] Deleted task
+[15:24:08] [DEBUG] [436927f913e182e1] Retrieved scan data and error messages
+[15:24:08] [DEBUG] [436927f913e182e1] Deleted task
